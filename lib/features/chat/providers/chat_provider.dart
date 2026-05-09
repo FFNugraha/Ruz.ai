@@ -25,6 +25,7 @@ enum MessageType { text, image, system }
 class ChatProvider extends ChangeNotifier {
   final GeminiService _gemini;
   final SpeechService _speech;
+  // ignore: unused_field
   final FirebaseService _firebase;
   
   List<ChatMessage> _messages = [];

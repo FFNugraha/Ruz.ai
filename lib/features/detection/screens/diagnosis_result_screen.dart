@@ -188,8 +188,9 @@ class DiagnosisResultScreen extends StatelessWidget {
         const SizedBox(height: 8),
         ...result.rekomendasiPenanganan.map((rek) {
           Color prioColor = Colors.grey;
-          if (rek.prioritas.toLowerCase().contains('segera')) prioColor = AppColors.danger;
-          else if (rek.prioritas.toLowerCase().contains('preventif')) prioColor = AppColors.success;
+          if (rek.prioritas.toLowerCase().contains('segera')) {
+            prioColor = AppColors.danger;
+          } else if (rek.prioritas.toLowerCase().contains('preventif')) prioColor = AppColors.success;
           else prioColor = AppColors.warning;
 
           return Card(

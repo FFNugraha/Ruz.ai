@@ -111,8 +111,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       temp = '${_weatherData!.temperature.round()}°C';
       
       String iconStr = _weatherService.getWeatherIcon(_weatherData!.weatherCode);
-      if (iconStr == 'wb_sunny') iconData = Icons.wb_sunny;
-      else if (iconStr == 'cloud_queue') iconData = Icons.cloud_queue;
+      if (iconStr == 'wb_sunny') {
+        iconData = Icons.wb_sunny;
+      } else if (iconStr == 'cloud_queue') iconData = Icons.cloud_queue;
       else if (iconStr == 'foggy') iconData = Icons.foggy;
       else if (iconStr == 'grain') iconData = Icons.grain;
       else if (iconStr == 'water_drop') iconData = Icons.water_drop;
