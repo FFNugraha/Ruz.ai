@@ -167,9 +167,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildFieldStatusCard() {
-    final moisture = _sensorData?.soilMoisture.toStringAsFixed(1) ?? '--';
     final temp = _sensorData?.temperature.toStringAsFixed(1) ?? '--';
-    final ph = _sensorData?.soilPH.toStringAsFixed(1) ?? '--';
+    final humidity = _sensorData?.humidity.toStringAsFixed(1) ?? '--';
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -200,14 +199,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildSensorItem(Icons.water_drop, 'Kelembaban', '$moisture%', AppColors.info),
-              _buildSensorItem(Icons.thermostat, 'Suhu Tanah', '$temp°C', AppColors.warning),
-              _buildSensorItem(Icons.science, 'pH Tanah', ph, AppColors.success),
-            ],
-          ),
+          if (_sensorData == null)
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: CircularProgressIndicator(),
+              ),
+            )
+          else
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildSensorItem(Icons.thermostat, 'Suhu Udara', '$temp°C', AppColors.warning),
+                _buildSensorItem(Icons.water_drop, 'Kelembapan', '$humidity%', AppColors.info),
+              ],
+            ),
         ],
       ),
     );

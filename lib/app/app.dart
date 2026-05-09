@@ -4,6 +4,8 @@ import '../shared/widgets/ruzai_bottom_nav.dart';
 import '../features/dashboard/screens/dashboard_screen.dart';
 import '../features/detection/screens/camera_screen.dart';
 import '../features/chat/screens/chat_screen.dart';
+import '../features/history/screens/history_screen.dart';
+import '../features/profile/screens/profile_screen.dart';
 
 class RuzaiApp extends StatelessWidget {
   const RuzaiApp({super.key});
@@ -45,8 +47,8 @@ class _MainScreenState extends State<MainScreen> {
     const DashboardScreen(),
     const CameraScreen(),
     const ChatScreen(),
-    const Center(child: Text('Riwayat Screen (WIP)')),
-    const Center(child: Text('Profile Screen (WIP)')),
+    const HistoryScreen(),
+    const ProfileScreen(),
   ];
 
   @override

@@ -4,13 +4,14 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 class IoTService {
-  final MqttServerClient client = MqttServerClient('broker.emqx.io', '');
+  final MqttServerClient client = MqttServerClient('9ee7dd76df1947aa9b4c775cd9673910.s1.eu.hivemq.cloud', '');
   final StreamController<SensorData> _sensorDataController = StreamController<SensorData>.broadcast();
 
   Stream<SensorData> get sensorDataStream => _sensorDataController.stream;
 
   Future<void> connect() async {
-    client.port = 1883;
+    client.port = 8883;
+    client.secure = true;
     client.keepAlivePeriod = 20;
     client.onDisconnected = onDisconnected;
     client.logging(on: false);
@@ -24,7 +25,7 @@ class IoTService {
     client.connectionMessage = connMess;
 
     try {
-      await client.connect();
+      await client.connect('ESP32CLIENT', 'Admin123');
     } catch (e) {
       print('Exception: $e');
       client.disconnect();
@@ -43,7 +44,7 @@ class IoTService {
           print('Error parsing IoT data: $e');
         }
       });
-      client.subscribe('ruzai/field/sensors', MqttQos.atLeastOnce);
+      client.subscribe('iot/kebun/sensor', MqttQos.atLeastOnce);
     } else {
       print('ERROR: MQTT client connection failed');
       client.disconnect();
@@ -56,23 +57,33 @@ class IoTService {
 }
 
 class SensorData {
-  final double soilMoisture;   // % kelembaban tanah
-  final double temperature;    // °C suhu udara
-  final double soilPH;         // pH tanah
+  final double temperature;
+  final double humidity;
+  final double soilMoisture;
+  final String soilStatus;
   final DateTime lastUpdated;
 
   SensorData({
-    required this.soilMoisture,
     required this.temperature,
-    required this.soilPH,
+    required this.humidity,
+    required this.soilMoisture,
+    required this.soilStatus,
     required this.lastUpdated,
   });
 
   factory SensorData.fromJson(Map<String, dynamic> data) {
+    double parseDouble(dynamic value) {
+      if (value == null) return 0.0;
+      if (value is num) return value.toDouble();
+      if (value is String) return double.tryParse(value) ?? 0.0;
+      return 0.0;
+    }
+
     return SensorData(
-      soilMoisture: (data['humidity'] ?? data['soil_moisture'] ?? 0).toDouble(),
-      temperature: (data['temperature'] ?? 0).toDouble(),
-      soilPH: (data['soil_ph'] ?? 0).toDouble(),
+      temperature: parseDouble(data['suhu']),
+      humidity: parseDouble(data['kelembapan'] ?? data['kelembaban']),
+      soilMoisture: parseDouble(data['soil_pct'] ?? data['soilpct']),
+      soilStatus: data['soil_status']?.toString() ?? 'Unknown',
       lastUpdated: DateTime.now(),
     );
   }
