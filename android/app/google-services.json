@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "636349216762",
+    "project_id": "ruzai-caac6",
+    "storage_bucket": "ruzai-caac6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636349216762:android:dff0affa6a8833e4b61643",
+        "android_client_info": {
+          "package_name": "com.example.ruzai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636349216762-etmpv0dflu59gbfopioqpi3bqjvo6or0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyyijk0M6rxUO0CLf6_MDOfSP-cxb5Swg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636349216762-etmpv0dflu59gbfopioqpi3bqjvo6or0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
