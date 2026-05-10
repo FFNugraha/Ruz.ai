@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/services/auth_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -68,6 +69,7 @@ class ProfileScreen extends StatelessWidget {
                   textColor: AppColors.danger, 
                   iconColor: AppColors.danger,
                   hideArrow: true,
+                  onTap: () => AuthService().signOut(),
                 ),
               ],
             ),
@@ -115,6 +117,7 @@ class ProfileScreen extends StatelessWidget {
     Color? textColor, 
     Color? iconColor,
     bool hideArrow = false,
+    VoidCallback? onTap,
   }) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 24),
@@ -124,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
         style: TextStyle(color: textColor ?? Colors.black87),
       ),
       trailing: hideArrow ? null : const Icon(Icons.chevron_right, color: Colors.grey),
-      onTap: () {},
+      onTap: onTap ?? () {},
     );
   }
 }
